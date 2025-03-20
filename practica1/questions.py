@@ -36,18 +36,11 @@ for _ in range(3):
 
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
-        user_answer = input("Respuesta: ")
-        # Se verifica si la respuesta es un digito y esta en rango
-        if user_answer.isdigit() and 1 <= int(user_answer) <= len(correct_answers_index):
-            user_answer_index = int(user_answer) - 1
-            # Se verifica si la respuesta es correcta
-            if user_answer_index == correct_answers_index[question_index]:
-                print("¡Correcto!")
-                break
-        else:
-            # Si ingreso una respuesta no valida, terminar
-            print("Respuesta no válida")
-            exit(1)
+        user_answer = int(input("Respuesta: ")) - 1
+        # Se verifica si la respuesta es correcta
+        if user_answer == correct_answers_index[question_index]:
+            print("¡Correcto!")
+            break
     else:
         # Si el usuario no responde correctamente después de 2 intentos,
         # se muestra la respuesta correcta
