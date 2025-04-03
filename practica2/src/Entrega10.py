@@ -26,39 +26,59 @@ def getMVP(compare,section):
     return max(compare, key=lambda player: compare[player][section])
 
 
-def simulateRound(round,guide,resultados):
-    temp = {}
+def roundRank(temp,mvp):
     header = ['Jugador','Kills','Asistencias','Muertes','Puntos']
     tab = '{:<8} {:<6} {:<12} {:<7} {:<7}'
     tableRow(header, tab, divider='yes')
     
-    for player,stats in round.items():
+    for player,stats in temp.items():
         line = [player]
-        line += (list(stats.values())) # [player, kills, assists, deaths]
+        stats.pop('mvps',0) # remove mvps
+        line += list(stats.values()) # [player, kills, assists, deaths, mvps, points]
+        # line.pop(-2) 
+        tableRow(line, tab)
+    tableRow(header, tab, divider='only')
+        
+    print(f'MVP de la ronda: {mvp} con {temp[mvp]['points']} puntos.\n')
+
+
+def simulateRound(round,guide,resultados):
+    temp = {}
+    
+    for player,stats in round.items():
 
         statsKeys = list(stats.keys()) # ['kills', 'assists', 'deaths']
         points = getPoints(stats,statsKeys,guide)
-        line += [points] # [player, kills, assists, deaths, points]
         
         # tengo que guardar y sumar todas las estadisticas y puntos de los jugadores
+        # print(type(temp))
         temp[player] = {**stats, 'points': points} # {player: {'kills': #, 'assists': #, 'deaths': #, 'points': #}, ...}
         for x in statsKeys:
             resultados[player][x] = resultados[player].get(x,0) + stats[x]
         resultados[player]['points'] = resultados[player].get('points',0) + points
         
-        tableRow(line, tab)
-
-    tableRow(header, tab, divider='only')
+        # print(temp)
+        # orgenar el diccionario temp segun 'points', de mayor a menor
+        temp = dict(sorted(temp.items(), key=lambda item: item[1]['points'], reverse=True))
+        
+        # print(temp)
+        # temp = sorted(temp.items(), key=lambda player: temp[player]['points'], reverse=True)
+        # resultados = sorted(resultados, key=lambda player: resultados[player]['points'], reverse=True)
 
     mvp = getMVP(temp,'points') # obtiene el jugador con la mayor cantidad de puntos
     resultados[mvp]['mvps'] = resultados[mvp].get('mvps',0) + 1
-    print(f'MVP de la ronda: {mvp} con {temp[mvp]['points']} puntos.')
+    # print(resultados)
+
+    roundRank(temp,mvp)
 
 
-def finalRank(resultados):
+def finalRank(resultados, noHeader=False):
     header = ['Jugador','Kills','Asistencias','Muertes','MVPs','Puntos']
     tab = '{:<8} {:<6} {:<12} {:<7} {:<5} {:<7}'
-    tableRow(header, tab, divider='yes')
+    if not noHeader:
+        tableRow(header, tab, divider='yes')
+    
+    resultados = dict(sorted(resultados.items(), key=lambda item: item[1]['points'], reverse=True))
     
     for player,stats in resultados.items():
         line = [player]
@@ -124,9 +144,12 @@ def finalRank(resultados):
 # }
 
 # for i,r in enumerate(rounds):
-#     print(f'Ranking ronda {i}:')
+#     print(f'Ranking ronda {i+1}:')
 #     simulateRound(r,guide,ranks)
+#     print('Ranking hasta ahora:')
+#     finalRank(ranks)
+    
 #     print()
 
-# print('Ranking final:')
+# print('\nRanking final:')
 # finalRank(ranks)

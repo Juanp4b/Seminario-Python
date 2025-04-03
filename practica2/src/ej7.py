@@ -4,7 +4,6 @@
 # El usuario debe ingresarse por teclado y debe validar que no exeda los 15 caracteres.
 
 import random, string
-from datetime import date
 
 def generarCodigo(name, fecha, max=30):
     code = name.upper()

@@ -2,4 +2,4 @@
 # diferente orden)
 
 def anagramas(w1,w2):
-    return sorted(w1) == sorted(w2)
+    return sorted(w1.lower()) == sorted(w2.lower())
