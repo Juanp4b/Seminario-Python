@@ -5,6 +5,9 @@
 - Resolución del Ejercicio 10 del Trabajo Práctico 2.
 - Programado en Python (3.12.9) para ejecutarse desde Jupyter Notebook.
 
+## VIDEO DE EXPLICACIÓN DEL CÓDIGO
+- https://www.youtube.com/watch?v=jXT9zLtYReo
+
 ## INSTALAR PYTHON
 1. Sigue los pasos de la siguiente documentación:
   - https://python-unlp.github.io/blog/2023/04/22/instalaci%C3%B3n-de-python/
