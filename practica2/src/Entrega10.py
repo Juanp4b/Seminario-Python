@@ -44,7 +44,7 @@ def roundRank(temp,mvp):
 def simulateRound(round,guide,resultados):
     temp = {}
     
-    for player,stats in round.items():
+    for player,stats in round.items(): # stats = {'kills': #, 'assists': #, 'deaths': #}
 
         statsKeys = list(guide.keys()) # ['kills', 'assists', 'deaths']
         points = getPoints(stats,statsKeys,guide)

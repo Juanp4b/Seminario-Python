@@ -6,7 +6,10 @@
 - Programado en Python (3.12.9) para ejecutarse desde Jupyter Notebook.
 
 ## VIDEO DE EXPLICACIÓN DEL CÓDIGO
-- https://www.youtube.com/watch?v=jXT9zLtYReo
+1. Video más corto (~8 mins):
+  - https://www.youtube.com/watch?v=Vhk1ibofvTw
+2. Video más largo (~20 mins):
+  - https://www.youtube.com/watch?v=jXT9zLtYReo
 
 ## INSTALAR PYTHON
 1. Sigue los pasos de la siguiente documentación:
